@@ -14,12 +14,12 @@ Joints_pins = {'rf':['0','1','2','3'],
 
 Degree2pulse = 500/90
 
-Offset = {'0':0, '1':0, '2':0, '3':0,
-          '4':0, '5':0, '6':0, '7':0,
-          '8':0, '9':0, '10':0, '11':0,
-          '16':0, '17':0, '18':0, '19':0,
-          '20':0, '21':0, '22':0, '23':0,
-          '24':0, '25':0, '26':0, '27':0,}
+Offset = {'0':15, '1':0, '2':0, '3':20,
+          '4':-20, '5':-25, '6':0, '7':40,
+          '8':80, '9':-90, '10':0, '11':0,
+          '16':95, '17':-50, '18':0, '19':0,
+          '20':-30, '21':10, '22':10, '23':0,
+          '24':75, '25':25, '26':0, '27':0,}
 
 class RobotInterface:
     def __init__(self,port):
@@ -73,8 +73,8 @@ class RobotInterface:
     
     def set_offset(self):
         command = ''
-        for key,value in Offset:
-            command = command + '#{} PO{}'.format(key,value)
+        for key in Offset:
+            command = command + '#{} PO{}'.format(key,Offset[key])
         
         command = command + '\r'
         self.control_board.write(command.encode())
@@ -82,13 +82,16 @@ class RobotInterface:
 
     def tune_offset(self):
         try:
-            leg = input('Choose leg(rf,rm,rr,lf,lm,lr): ')
-            joint = int(input('Choose joint(0,1,2,3): '))
-            pin = Joints_pins[leg][joint]
-            while True:
-                offset = int(input('Offset(-100<=offset<=100): '))
-                assert offset<=100 and offset>=-100, 'offset must be <=100 and >=-100'
-                self.control_board.write(('#{} PO{}\r'.format(pin, offset)).encode())
+            while(True):
+                leg = input('Choose leg(rf,rm,rr,lf,lm,lr): ')
+                joint = int(input('Choose joint(0,1,2,3): '))
+                pin = Joints_pins[leg][joint]
+                while True:
+                    offset = int(input('Offset(-100<=offset<=100): '))
+                    if offset==0:
+                        break
+                    assert offset<=100 and offset>=-100, 'offset must be <=100 and >=-100'
+                    self.control_board.write(('#{} PO{}\r'.format(pin, offset)).encode())
         except KeyboardInterrupt:
             print("Tune End")
 
