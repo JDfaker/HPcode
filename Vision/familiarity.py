@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 nn = WillshawNet(nb_channels=1)
 nn.update = True
 for i in range(5):
-    img = cv.imread('Vision/img/image_'+ str(i) + '.jpg',cv.IMREAD_GRAYSCALE)
+    img = cv.imread('img/image_'+ str(i) + '.jpg',cv.IMREAD_GRAYSCALE)
     img = cv.resize(img,(60,6), interpolation=cv.INTER_AREA)
     en = nn(img.flatten())
 nn.update = False

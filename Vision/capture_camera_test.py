@@ -27,8 +27,9 @@ while True:
         break
     elif k == ord('c'):
         print('saving image')
-        cv.imwrite('Vision/img/image_{}.jpg'.format(image_num),gray)
+        cv.imwrite('img/image_{}.jpg'.format(image_num),gray)
         image_num += 1
+        print('saved')
         
 # When everything done, release the capture
 cap.release()
