@@ -1,0 +1,18 @@
+# core
+cython
+setuptools
+nose
+
+# math/tensors
+numpy
+scipy
+
+# plot
+matplotlib
+
+# io
+argparse
+pyyaml
+
+# extra
+imutils

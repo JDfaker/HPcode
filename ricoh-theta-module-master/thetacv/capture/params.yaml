@@ -1,0 +1,67 @@
+# -*- coding: utf-8 -*-
+# The MIT License (MIT)
+#
+# Copyright (c) 2016 Evripidis Gkanias, Theodoros Stouraitis
+#                   <ev.gkanias@gmail.com>, <stoutheo@gmail.com>
+#
+#                   University of Edinburgh
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# ---------------------------------------------------------------------------- #
+
+
+capture:        # about capturing
+    frame:          # for the Frame
+        width:  640     # Default width of the fisheye image
+        height: 640     # default height of the fisheye image
+        channels: 3     # default number of channels
+        scale:  .50
+    radius:         # for the radius of the fisheye
+        scale: .90      # scale of the radius of the fisheye image
+    warp:           # for the Dewarp class
+        filename: MAP/dewarp.map
+    pano:           # for the Panorama class
+        filename: MAP/panorama.map
+    omma:           # for the OmmatidiaFeatures class
+        kfilename: MAP/blur.ker
+        cscale: 25      # scale of the covariance matrix of the Gaussians
+        kscale: 150     # scale of the covariance of the Gaussian maps
+    vorn:
+        filepatt: MAP/voronoi_%s.map
+    gaus:           # for the OmmatidiaGauss class
+        filepatt: MAP/gaussian_%s.map
+simulation:         # about the visual simulation enviroment
+    colour:
+        skyblue:
+            - 1.0000000
+            - 0.9000000
+            - 0.9900000
+        sandybrown:
+            - 0.3931370
+            - 0.7068630
+            - 0.9735290
+        dummyblack:
+            - 0.0000000
+            - 0.0000000
+            - 0.0000000
+        burrowbrown:
+            - 0.0000000
+            - 0.2980392
+            - 0.6000000

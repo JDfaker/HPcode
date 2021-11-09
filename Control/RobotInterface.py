@@ -1,6 +1,4 @@
 import serial
-import math
-import time
 
 Legs = ['rf','rm','rr','lf','lm','lr']
 Joints = [0,1,2,3]

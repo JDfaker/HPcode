@@ -1,0 +1,8 @@
+*.pyc
+*.npz
+*~
+build
+dist
+repos-3rd
+venv
+ThetaCV.egg-info

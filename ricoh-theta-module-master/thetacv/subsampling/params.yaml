@@ -1,0 +1,49 @@
+# -*- coding: utf-8 -*-
+# The MIT License (MIT)
+#
+# Copyright (c) 2016 Evripidis Gkanias, Theodoros Stouraitis
+#                   <ev.gkanias@gmail.com>, <stoutheo@gmail.com>
+#
+#                   University of Edinburgh
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+
+# ---------------------------------------------------------------------------- #
+
+subsampling:    # about subsampling
+    filepattern: 'data/%s.csv'
+    col:            # wrt columns
+        length: 100     # number of vertical samples in the frontal area
+        fscale: 1.0     # frontal scale
+        rscale: .75     # rear scale
+        rsang: 88.      # rear starting angle
+        rrang: 110.     # rear angular range
+    row:            # wrt rows
+        length: 75      # number of horizontal samples in the horizon
+        horizon:
+            index: 48               # index of the horizon
+            front-io-angle: 2.7     # front interommatidial angle
+            side-io-angle: 2.1      # side interommatidial angle
+        dorsal:
+            index: 99               # index of the top line
+            front-io-angle: 3.0     # front interommatidial angle
+            side-io-angle: 2.4      # side interommatidial angle
+
+plot:           # about the plots (splot)
+    axis-limit: 1.1     # scale of the axis limit
