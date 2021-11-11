@@ -17,7 +17,7 @@ KC_THRESHOLD = params['kc-threshold']
 
 class WillshawNet(Network):
 
-    def __init__(self, learning_rate=LEARNING_RATE, tau=KC_THRESHOLD, nb_channels=1, **kwargs):
+    def __init__(self, learning_rate=LEARNING_RATE, tau=KC_THRESHOLD, nb_channels=1, num_pn=2000, num_kc=20000, num_en=1, **kwargs):
         """
 
         :param learning_rate: the rate with which the weights are changing
@@ -32,9 +32,9 @@ class WillshawNet(Network):
         self._tau = tau
         self.nb_channels = nb_channels
 
-        self.nb_pn = params['mushroom-body']['PN'] * nb_channels
-        self.nb_kc = params['mushroom-body']['KC'] * nb_channels
-        self.nb_en = params['mushroom-body']['EN']
+        self.nb_pn = num_pn
+        self.nb_kc = num_kc
+        self.nb_en = num_en
 
         self.w_pn2kc = generate_pn2kc_weights(self.nb_pn, self.nb_kc, dtype=self.dtype)
         self.w_kc2en = np.ones((self.nb_kc, self.nb_en), dtype=self.dtype)
