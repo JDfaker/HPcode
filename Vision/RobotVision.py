@@ -18,6 +18,8 @@ class Vision:
         self.num_img_captured = 0
         self.learning_flag = True
 
+        self.training_images_path = 'img/experiment_4/path_learning_img/'
+        self.retracing_images_path = 'img/experiment_4/path_retrace_img/'
 
     def preprocess(sefl,image):
         gray_img = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
@@ -28,7 +30,7 @@ class Vision:
         print('Learning......')
         self.nn.update = True
         for i in range(1,self.num_training_img_captured+1):
-            img = cv.imread('img/training_image_{}.jpg'.format(i))
+            img = cv.imread(self.training_images_path + 'img_{}.jpg'.format(i))
             img = self.preprocess(img)
             en = self.nn(img.flatten())
             print(en)
@@ -41,7 +43,7 @@ class Vision:
             print("Cannot open camera")
             exit()
         ret, frame = cap.read()
-        cv.imwrite('img/training_image_{}.jpg'.format(self.num_training_img_captured),frame,cv.cvtColor(frame, cv.COLOR_BGR2GRAY))
+        cv.imwrite('img/path_learning_img/img_{}.jpg'.format(self.num_training_img_captured),frame,cv.cvtColor(frame, cv.COLOR_BGR2GRAY))
         self.num_img_captured += 1
         cap.release()
     
@@ -75,7 +77,7 @@ class Vision:
         # plt.imshow(shifted_img_list[i],cmap=plt.cm.gray)
     
     def streaming_with_fisheyeView(self):
-        cap = cv.VideoCapture(1)
+        cap = cv.VideoCapture(0)
         while True:
             # Capture frame-by-frame
             ret, frame = cap.read()
@@ -94,10 +96,10 @@ class Vision:
             elif k == ord('c'):
                 if(self.learning_flag):
                     self.num_training_img_captured += 1
-                    cv.imwrite('img/training_image_{}.jpg'.format(self.num_training_img_captured),frame)
+                    cv.imwrite(self.training_images_path + 'img_{}.jpg'.format(self.num_training_img_captured),frame)
                 else:
                     self.num_img_captured += 1
-                    cv.imwrite('img/image_{}.jpg'.format(self.num_img_captured),frame)
+                    cv.imwrite(self.retracing_images_path + 'img_{}.jpg'.format(self.num_img_captured),frame)
                 print('image saved')
         cap.release()
     
@@ -133,10 +135,10 @@ class Vision:
             elif k == ord('c'):
                 if(self.learning_flag):
                     self.num_training_img_captured += 1
-                    cv.imwrite('img/training_image_{}.jpg'.format(self.num_training_img_captured),img)
+                    cv.imwrite(self.training_images_path + 'img_{}.jpg'.format(self.num_training_img_captured),img)
                 else:
                     self.num_img_captured += 1
-                    cv.imwrite('img/image_{}.jpg'.format(self.num_img_captured),img)
+                    cv.imwrite(self.retracing_images_path + 'img_{}.jpg'.format(self.num_img_captured),img)
                 print('image saved')
 
     def streaming_with_crabView(self):
@@ -182,10 +184,10 @@ class Vision:
             elif k == ord('c'):
                 if(self.learning_flag):
                     self.num_training_img_captured += 1
-                    cv.imwrite('img/training_image_{}.jpg'.format(self.num_training_img_captured),frame)
+                    cv.imwrite(self.training_images_path + 'img_{}.jpg'.format(self.num_training_img_captured),frame)
                 else:
                     self.num_img_captured += 1
-                    cv.imwrite('img/image_{}.jpg'.format(self.num_img_captured),frame)
+                    cv.imwrite(self.retracing_images_path + 'img_{}.jpg'.format(self.num_img_captured),frame)
                 print('image saved')
 
 RV = Vision()
@@ -210,7 +212,7 @@ try:
             RV.learning_flag = not RV.learning_flag
             print('Is learning?: '+str(RV.learning_flag))
         if command == '0':
-            RV.get_highest_familiarity('img/image_{}.jpg'.format(RV.num_img_captured))
+            RV.get_highest_familiarity(RV.retracing_images_path + 'img_{}.jpg'.format(RV.num_img_captured))
         if command == 'end':
             break
 except KeyboardInterrupt:

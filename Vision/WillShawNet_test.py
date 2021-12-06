@@ -4,7 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 num_of_pn = 2000
-num_of_kc = 10000
+num_of_kc = 20000
 resize_shape = (200,10)
 print('building network')
 nn = WillshawNet(nb_channels=1,num_pn=num_of_pn,num_kc=num_of_kc)
@@ -19,7 +19,7 @@ def start_learning(num_of_img):
     print('Learning......')
     nn.update = True
     for i in range(1,num_of_img+1):
-        img = cv.imread('img/training_img_test3/training_img_{}.jpg'.format(i))
+        img = cv.imread('img/path_learning_img/img_{}.jpg'.format(i))
         img = preprocess(img)
         en = nn(img.flatten())
         print(en)
@@ -36,7 +36,6 @@ def get_familiarity(img_path,pixels_shift_per_step=10):
     shifted_pixels_steps = list(range(-int(width_pixels_num/2),int(width_pixels_num/2)+1,pixels_shift_per_step))
     look_angle_list = list(range(-180,181,int(pixels_shift_per_step*pixel2degree)))
 
-
     index = 0
     for step in shifted_pixels_steps:
         index+=1
@@ -49,21 +48,20 @@ def get_familiarity(img_path,pixels_shift_per_step=10):
             right_img = img[0:img.shape[0], width_pixels_num - abs(step): width_pixels_num]
             shifted_img = np.concatenate((right_img,left_img),axis=1)
         shifted_img_list.append(shifted_img)
-        en_value = nn(img.flatten())
+        en_value = nn(shifted_img.flatten())
         en_outputs.append(en_value)
-        cv.imwrite('img/{}_{}_{}.png'.format(index,step,))
            
-    print(en_output)
-    i = np.argmin(en_output)
-    plt.plot(look_angle_list, en_output)
+    print(en_outputs)
+    i = np.argmin(en_outputs)
+    plt.plot(look_angle_list, en_outputs)
     plt.xlabel("Angle in degree")
     plt.ylabel("En-value")
     plt.show()
 
-    return shifted_img_list[len(shifted_img_list)-i]
+    return shifted_img_list[i]
 
-start_learning(14)
-img = get_familiarity('img/mental_rotation_test/test_img.png')
+start_learning(3)
+img = get_familiarity('img/path_retrace_img/img_1.jpg')
 # img = cv.imread('img/training_img_test/training_img_1.png')
 while(True):
     cv.imshow('test img',img)
