@@ -90,34 +90,7 @@ class Control(RobotInterface):
     def right_turn_gait3(self):
         pass
     def left_turn_gait1(self,steps):
-        for i in range(steps):
-            #lift rf rr lm
-            self.rotate_to([('rf',1,45),('rr',1,45),('lm',1,-45)],T=500)
-            time.sleep(0.3)
-            #forward rf rr lm
-            self.rotate_to([('rf',0,15),('rr',0,15),('lm',0,-20)],T=500)
-            
-            #lf lr rm propel
-            self.rotate_to([('lf',0,30),('lr',0,30),('rm',0,-30)],T=1000)
-            time.sleep(1)
-
-            #put down rf rr lm
-            self.rotate_to([('rf',1,0),('rr',1,0),('lm',1,0)],T=500)
-            time.sleep(1)
-
-            #lift lf lr rm
-            self.rotate_to([('lf',1,-45),('lr',1,-45),('rm',1,45)],T=500)
-            time.sleep(0.3)
-            #forward lf lr rm
-            self.rotate_to([('lf',0,-30),('lr',0,-30),('rm',0,30)],T=500)
-
-            #propel rf rr lm
-            self.rotate_to([('rf',0,-30),('rr',0,-30),('lm',0,30)],T=1000)
-            time.sleep(1)
-
-            #put down lf lr rm
-            self.rotate_to([('lf',1,0),('lr',1,0),('rm',1,0)],T=500)
-            time.sleep(1)
+        pass
     def left_turn_gait2(self):
         pass
     def left_turn_gait3(self):
