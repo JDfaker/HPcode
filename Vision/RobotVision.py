@@ -18,9 +18,9 @@ class Vision:
         self.num_img_captured = 0
         self.learning_flag = True
 
-        self.training_images_path = 'img/experiment_9/path_learning_img/'
-        self.retracing_images_path = 'img/experiment_9/path_retrace_img/'
-        self.experiment_path = 'img/experiment_9/'
+        self.training_images_path = 'img/experiment_5/path_learning_img/'
+        self.retracing_images_path = 'img/experiment_5/path_retrace_img/'
+        self.experiment_path = 'img/experiment_5/'
 
     def preprocess(sefl,image):
         gray_img = cv.cvtColor(image, cv.COLOR_BGR2GRAY)

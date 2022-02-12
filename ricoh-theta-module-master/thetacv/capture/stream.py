@@ -236,7 +236,7 @@ class Camera(StreamBase):
         else:
             # Using OpenCV to capture from device 0.
             # self.video = cv2.VideoCapture(0)
-            i = 0
+            i = 1
             while True:
                 try:
                     self.video = WebcamVideoStream(src=i).start()

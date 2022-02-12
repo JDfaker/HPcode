@@ -73,7 +73,7 @@ class ExampleHumanView(object):
             frame = self.stream.next()
 
             # print the frame rate
-            print(" Preprocessing Frame Rate is : ", 1. / (time.time() - stime), "FPS")
+            print(" Preprocessing Frame Rate is : ", 1. / (time.time() - stime + np.finfo(float).eps), "FPS")
 
             # place side by side the left and right eye perceived images
             img = np.concatenate((frame.leye, frame.reye), axis=1)
