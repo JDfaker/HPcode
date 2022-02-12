@@ -18,13 +18,18 @@ class Vision:
         self.num_img_captured = 0
         self.learning_flag = True
 
-        self.training_images_path = 'img/experiment_4/path_learning_img/'
-        self.retracing_images_path = 'img/experiment_4/path_retrace_img/'
+        self.training_images_path = 'img/experiment_9/path_learning_img/'
+        self.retracing_images_path = 'img/experiment_9/path_retrace_img/'
+        self.experiment_path = 'img/experiment_9/'
 
     def preprocess(sefl,image):
         gray_img = cv.cvtColor(image, cv.COLOR_BGR2GRAY)
         p_img = cv.resize(gray_img,(200,10), interpolation=cv.INTER_AREA)
         return p_img
+    
+    def crop_image(self, img):
+        crop_img = img[100:370, :]
+        return crop_img
     
     def start_learning(self):
         print('Learning......')
@@ -71,6 +76,8 @@ class Vision:
         plt.plot(look_angle_list, en_output)
         plt.xlabel("angle")
         plt.ylabel("familiarity")
+        plt.savefig(self.experiment_path+'plot_{}.png'.format(self.num_img_captured))
+        print('plot saved')
         plt.show()
 
         # i = np.argmin(en_output)
@@ -135,10 +142,10 @@ class Vision:
             elif k == ord('c'):
                 if(self.learning_flag):
                     self.num_training_img_captured += 1
-                    cv.imwrite(self.training_images_path + 'img_{}.jpg'.format(self.num_training_img_captured),img)
+                    cv.imwrite(self.training_images_path + 'img_{}.jpg'.format(self.num_training_img_captured), img)
                 else:
                     self.num_img_captured += 1
-                    cv.imwrite(self.retracing_images_path + 'img_{}.jpg'.format(self.num_img_captured),img)
+                    cv.imwrite(self.retracing_images_path + 'img_{}.jpg'.format(self.num_img_captured), img)
                 print('image saved')
 
     def streaming_with_crabView(self):
@@ -177,6 +184,10 @@ class Vision:
             # show image
             cv.imshow('Live', img)
 
+            # change all the float values of image np matrix to integer so that it can be saved
+            img = 255 * (img-img.min()) / (img.max() - img.min())
+            img = np.array(img, np.int)
+
             k = cv.waitKey(1)
             if k == ord('q'):
                 cv.destroyWindow('Live')
@@ -184,10 +195,10 @@ class Vision:
             elif k == ord('c'):
                 if(self.learning_flag):
                     self.num_training_img_captured += 1
-                    cv.imwrite(self.training_images_path + 'img_{}.jpg'.format(self.num_training_img_captured),frame)
+                    cv.imwrite(self.training_images_path + 'img_{}.jpg'.format(self.num_training_img_captured),self.crop_image(img))
                 else:
                     self.num_img_captured += 1
-                    cv.imwrite(self.retracing_images_path + 'img_{}.jpg'.format(self.num_img_captured),frame)
+                    cv.imwrite(self.retracing_images_path + 'img_{}.jpg'.format(self.num_img_captured),self.crop_image(img))
                 print('image saved')
 
 RV = Vision()
@@ -210,7 +221,7 @@ try:
             RV.start_learning()
         if command == '5':
             RV.learning_flag = not RV.learning_flag
-            print('Is learning?: '+str(RV.learning_flag))
+            print('Is path learning process?: '+str(RV.learning_flag))
         if command == '0':
             RV.get_highest_familiarity(RV.retracing_images_path + 'img_{}.jpg'.format(RV.num_img_captured))
         if command == 'end':
